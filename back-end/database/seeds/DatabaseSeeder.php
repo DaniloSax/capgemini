@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(UserSeeder::class);
 
         factory(User::class, 5)->create()->each(function (User $user) {
             factory(Account::class, 1)->create(['user_id' => $user->id]);
