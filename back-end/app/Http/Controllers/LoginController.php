@@ -30,12 +30,12 @@ class LoginController extends Controller
                 'email' => ['As credenciais fornecidas estão incorretas.'],
             ]);
         }
-        $token = $user->createToken('api_token');
+        $token = $user->createToken('api_token')->accessToken;
 
         $user = [
             'name' => $user->name,
             'email' => $user->email,
-            'token' => $token->plainTextToken,
+            'token' => $token,
             'account' => $user->account,
         ];
         return response()->json($user);
@@ -43,6 +43,9 @@ class LoginController extends Controller
 
     public function logout()
     {
-        return 'chegou no logout';
+        $user = User::find(auth()->user()->id);
+
+        $user->tokens()->delete();
+        return response('token revogado!', 200);
     }
 }
