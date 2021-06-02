@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,19 +13,36 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'agency' => 'required',
+            'account' => 'required',
             'password' => 'required'
-            // 'device_name' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $account = Account::where([
+            'agency' => $request->agency,
+            'account' => $request->account,
+        ])->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        $user = $account->user ?? '';
+
+        if (!$user || empty($user) || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'email' => ['As credenciais fornecidas estão incorretas.'],
             ]);
         }
+        $token = $user->createToken('api_token');
 
-        return $user->createToken('api_token')->plainTextToken;
+        $user = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'token' => $token->plainTextToken,
+            'account' => $user->account,
+        ];
+        return response()->json($user);
+    }
+
+    public function logout()
+    {
+        return 'chegou no logout';
     }
 }

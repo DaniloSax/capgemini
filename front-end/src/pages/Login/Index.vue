@@ -67,17 +67,24 @@
 <script>
 export default {
   data: () => ({
-    agency: '',
-    account: '',
-    password: '',
+    agency: '250',
+    account: '10',
+    password: 'danilo123',
     loading: false
   }),
   methods: {
     async onSubmit () {
       this.loading = true
+
+      const credentials = {
+        agency: this.agency,
+        account: this.account,
+        password: this.password
+      }
+
       try {
-        const resp = await this.$store.dispatch('Auth/login')
-        console.log(resp)
+        await this.$store.dispatch('Auth/login', credentials)
+        this.$router.replace({ name: 'home' })
       } catch (error) {
         console.error(error)
       } finally {
