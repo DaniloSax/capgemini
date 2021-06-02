@@ -3,7 +3,7 @@
     <template v-slot:label>
       <div class="row items-center no-wrap">
         <q-icon left name="account_circle" />
-        <div class="text-center">username</div>
+        <div class="text-center">{{ auth ? auth.name : 'username' }}</div>
       </div>
     </template>
 
@@ -11,7 +11,7 @@
       <q-item>
         <q-item-section>
           <div>
-            username
+            {{ auth ? auth.name : 'username' }}
             <br />
             <strong>Administrador</strong>
           </div>

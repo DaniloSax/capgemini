@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
+    <q-header elevated class="text-black">
+      <q-toolbar class="bg-header">
         <q-btn
           flat
           dense
@@ -12,10 +12,12 @@
         />
 
         <q-toolbar-title>
-          DESAFIO CAPGEMINI
+          <div class="q-pt-sm">
+            <img src="../assets/logo.svg" alt="logo" />
+          </div>
         </q-toolbar-title>
 
-          <UserDropdown/>
+        <UserDropdown />
       </q-toolbar>
     </q-header>
 
@@ -26,10 +28,7 @@
       content-class="bg-grey-1"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
+        <q-item-label header class="text-grey-8">
           Essential Links
         </q-item-label>
         <EssentialLink
@@ -70,3 +69,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.bg-header {
+  background-color: white;
+}
+</style>
