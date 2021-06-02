@@ -40,7 +40,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable style="color: red;" @click="() => {}">
+          <q-item clickable style="color: red;" @click="logout">
             <q-item-section avatar>
               <q-icon name="login" />
             </q-item-section>
@@ -52,7 +52,11 @@
 
 <script>
 export default {
-
+  methods: {
+    logout () {
+      this.$router.replace({ name: 'login' })
+    }
+  }
 }
 </script>
 

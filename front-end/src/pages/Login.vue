@@ -1,0 +1,96 @@
+<template>
+  <q-layout row wrap>
+    <q-page-container class="bg-login">
+      <q-page padding>
+        <div class="fixed-center">
+          <q-card class="rounded border-top " style="width: 700px">
+            <q-card-section>
+              <div class="text-h6">Entrar</div>
+              <div class="text-subtitle2">Qual sua agência e conta ?</div>
+            </q-card-section>
+            <q-card-section>
+              <q-form @submit="onSubmit" class="q-gutter-md">
+                <div class="row ">
+                  <div class="col-12">
+                    <q-input
+                      v-model="agency"
+                      type="text"
+                      label="Agência"
+                      :rules="[value => !!value || 'Campo Obrigatório']"
+                      clearable
+                    />
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-12">
+                    <q-input
+                      v-model="account"
+                      type="text"
+                      label="Conta"
+                      :rules="[value => !!value || 'Campo Obrigatório']"
+                      clearable
+                    />
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-12">
+                    <q-input
+                      v-model="password"
+                      type="text"
+                      label="Senha"
+                      :rules="[value => !!value || 'Campo Obrigatório']"
+                      clearable
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <q-btn
+                    label="Entrar"
+                    type="submit"
+                    color="info"
+                    class="full-width"
+                    :loading="loading"
+                  />
+                </div>
+              </q-form>
+            </q-card-section>
+          </q-card>
+        </div>
+      </q-page>
+    </q-page-container>
+  </q-layout>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    agency: '',
+    account: '',
+    password: '',
+    loading: false
+  }),
+  methods: {
+    onSubmit () {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 3000)
+    }
+  }
+}
+</script>
+
+<style>
+.bg-login {
+  background: #2980b9;
+  background: -webkit-linear-gradient(to right, #ffffff, #6dd5fa, #2980b9);
+  background: linear-gradient(to right, #ffffff, #6dd5fa, #2980b9);
+}
+
+.border-top {
+  border-top: 4px solid var(--q-color-info);
+}
+</style>
