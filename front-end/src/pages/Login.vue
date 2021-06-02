@@ -73,11 +73,16 @@ export default {
     loading: false
   }),
   methods: {
-    onSubmit () {
+    async onSubmit () {
       this.loading = true
-      setTimeout(() => {
+      try {
+        const resp = await this.$store.dispatch('Auth/login')
+        console.log(resp)
+      } catch (error) {
+        console.error(error)
+      } finally {
         this.loading = false
-      }, 3000)
+      }
     }
   }
 }
