@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -30,6 +31,7 @@ class LoginController extends Controller
                 'email' => ['As credenciais fornecidas estão incorretas.'],
             ]);
         }
+
         $token = $user->createToken('api_token')->accessToken;
 
         $user = [
@@ -38,6 +40,7 @@ class LoginController extends Controller
             'token' => $token,
             'account' => $user->account,
         ];
+
         return response()->json($user);
     }
 
@@ -47,5 +50,12 @@ class LoginController extends Controller
 
         $user->tokens()->delete();
         return response('token revogado!', 200);
+    }
+
+    public function auth()
+    {
+        return response(auth()->user(),200);
+        $user = User::find(auth('web')->user()->id)->with('account')->first();
+        return response($user, 200);
     }
 }

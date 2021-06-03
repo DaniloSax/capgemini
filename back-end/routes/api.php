@@ -20,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'LoginController@login');
 Route::post('logout', 'LoginController@logout')->middleware('auth:api');
+
+Route::get('auth', 'LoginController@auth')->middleware('auth:api');;
+
+Route::apiResource('account', 'AccountController')->middleware('auth:api');

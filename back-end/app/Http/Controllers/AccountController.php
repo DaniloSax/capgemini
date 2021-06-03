@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\User;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -14,7 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::find(auth()->user()->id);
+
+        return response()->json($user->account);
     }
 
     /**

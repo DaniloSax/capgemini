@@ -54,6 +54,10 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  mounted () {
+    this.$store.dispatch('Auth/auth')
+  },
+
   methods: {
     async logout () {
       const resp = await this.$store.dispatch('Auth/logout')

@@ -2,20 +2,28 @@
   <q-page padding>
     <q-card class="bg-white">
       <q-card-section>
-        <div class="text-h6">Sacar</div>
-        <div class="text-subtitle2">
-          Preencha os campos necessários para saque
+        <div class="row justify-between">
+          <div class="column">
+            <div class="text-h6">Sacar</div>
+            <div class="text-subtitle2">
+              Preencha os campos necessários para saque
+            </div>
+          </div>
+
+          <q-btn
+            color="primary"
+            icon="arrow_back"
+            size="lg"
+            flat
+            @click="$router.push({ name: 'home' })"
+          />
         </div>
       </q-card-section>
       <q-card-section>
         <q-form @submit="onSubmit" class="q-gutter-md">
           <div class="row">
             <div class="col-12">
-              <q-field
-                filled
-                v-model="value"
-                label="Valor"
-              >
+              <q-field filled v-model="value" label="Valor">
                 <template
                   v-slot:control="{ id, floatingLabel, value, emitValue }"
                 >
@@ -32,12 +40,16 @@
                   <span>R$</span>
                 </template>
               </q-field>
-
             </div>
           </div>
 
           <div>
-            <q-btn label="Sacar" type="submit" color="primary" class="full-width" />
+            <q-btn
+              label="Sacar"
+              type="submit"
+              color="primary"
+              class="full-width"
+            />
           </div>
         </q-form>
       </q-card-section>
