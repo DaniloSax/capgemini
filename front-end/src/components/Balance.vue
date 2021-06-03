@@ -25,15 +25,6 @@ export default {
     await this.$store.dispatch('Account/getBalance')
   },
 
-  filters: {
-    money (value) {
-      return Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      }).format(value)
-    }
-  },
-
   computed: {
     ...mapGetters({
       account: 'Account/account'

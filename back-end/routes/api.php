@@ -24,5 +24,8 @@ Route::post('logout', 'LoginController@logout')->middleware('auth:api');
 Route::get('auth', 'LoginController@auth')->middleware('auth:api');;
 
 Route::get('account', 'AccountController@index')->middleware('auth:api');
-Route::put('account', 'AccountController@update')->middleware('auth:api');
+Route::put('account/{account}', 'AccountController@update')->middleware('auth:api');
 Route::post('account/deposit', 'AccountController@deposit')->middleware('auth:api');
+Route::post('account/{account}/transfer', 'AccountController@transfer')->middleware('auth:api');
+
+Route::get('extracts', 'ExtractController@index')->middleware('auth:api');

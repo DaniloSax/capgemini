@@ -28,11 +28,24 @@
 
       <q-card-section>
         <q-list>
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon color="primary" name="bluetooth" />
+          <q-item clickable v-ripple v-for="(item, i) in extracts" :key="i">
+            <q-item-section :class="`text-${item.type}`">
+              <div class="text-subtitle2">
+                {{ item.operation }}
+              </div>
+              <div class="text-subtitle1">
+                {{ formatDate(item.created_at) }}
+              </div>
             </q-item-section>
-            <q-item-section>Icon as avatar</q-item-section>
+            <q-item-section>
+              <div class="text-subtitle2 text-weight-thin">De: {{ item.from.name }}</div>
+              <div class="text-subtitle2 text-weight-thin">Para: {{ item.to.name }}</div>
+            </q-item-section>
+            <q-item-section>
+              <div class="text-subtitle1">
+                {{ item.value | money }}
+              </div>
+            </q-item-section>
           </q-item>
         </q-list>
       </q-card-section>
@@ -41,7 +54,27 @@
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+import { date } from 'quasar'
+
+export default {
+  async mounted () {
+    const resp = await this.$store.dispatch('Extract/extracts')
+    console.log(resp)
+  },
+
+  computed: {
+    ...mapGetters({
+      extracts: 'Extract/extracts'
+    })
+  },
+
+  methods: {
+    formatDate (timeStamp) {
+      return date.formatDate(timeStamp, 'DD/MM/YYYY')
+    }
+  }
+}
 </script>
 
 <style></style>
