@@ -30,5 +30,6 @@ export default {
 .card-hover:hover {
   background-color: rgb(206, 200, 200);
   cursor: pointer;
+  border-bottom: 2px solid $blue;
 }
 </style>
