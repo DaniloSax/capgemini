@@ -35,7 +35,7 @@ export function withDraw ({ getters, commit }, value) {
   })
 }
 
-export function deposit ({ getters, commit }, transaction) {
+export function deposit ({ commit }, transaction) {
   return new Promise((resolve, reject) => {
     axios.post('account/deposit', transaction, {
       headers: {
@@ -44,6 +44,21 @@ export function deposit ({ getters, commit }, transaction) {
     })
       .then(resp => {
         commit('SET_ACCOUNT', resp.data)
+        return resolve(resp.data)
+      })
+      .catch(error => reject(error))
+  })
+}
+
+export function transfer ({ getters, dispatch }, transaction) {
+  return new Promise((resolve, reject) => {
+    axios.post(`account/${getters.account.id}/transfer`, transaction, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('api_token')}`
+      }
+    })
+      .then(resp => {
+        dispatch('getBalance')
         return resolve(resp.data)
       })
       .catch(error => reject(error))

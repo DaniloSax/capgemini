@@ -24,12 +24,17 @@
         <q-form @submit="onSubmit" class="">
           <div class="row q-col-gutter-md">
             <div class="col-12">
-              <q-input v-model="bank" type="text" label="Banco" readonly />
+              <q-input
+                value="Banco Capgemini"
+                type="text"
+                label="Banco"
+                readonly
+              />
             </div>
 
             <div class="col-12">
               <q-input
-                v-model="accountType"
+                value="Conta corrente"
                 type="text"
                 label="Tipo da conta"
                 readonly
@@ -100,15 +105,27 @@
 export default {
   data: () => ({
     value: '',
-    bank: 'Banco Capgemini',
-    accountType: 'Conta Corrente',
     agency: '',
-    account: ''
+    account: '',
+    descritption: ''
   }),
 
   methods: {
-    onSubmit () {
-      console.log('sacando dinheiro')
+    async onSubmit () {
+      const transaction = {
+        agency: this.agency,
+        account: this.account,
+        value: this.value,
+        descritption: this.descritption
+      }
+
+      await this.$store.dispatch('Account/transfer', transaction)
+
+      this.$q.notify({
+        type: 'positive',
+        position: 'top-right',
+        message: 'Saque efetuado com sucesso!'
+      })
     }
   }
 }

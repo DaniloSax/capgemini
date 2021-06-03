@@ -20,7 +20,7 @@ class AccountController extends Controller
 
         return response()->json($user->account);
     }
-    
+
     /**
      * Saque
      */
@@ -34,7 +34,7 @@ class AccountController extends Controller
             'from' => $account->user->id,
             'to' => $account->user->id,
             'operation' => 'Saque',
-            'type' => 'positive',
+            'type' => 'negative',
             'value' => $request->value,
         ]);
 
@@ -44,18 +44,27 @@ class AccountController extends Controller
     public function deposit(Request $request)
     {
 
-        $account = Account::where([
+        $accountTo = Account::where([
             'agency' => $request->agency,
             'account' => $request->account,
         ])->first();
 
-        if (isset($account)) {
+        if (isset($accountTo)) {
 
-            $balance = $account->balance + $request->balance;
+            $balance = $accountTo->balance + $request->balance;
 
-            $account->update(['balance' => $balance]);
+            $accountTo->update(['balance' => $balance]);
 
-            return response($account, 200);
+            Extract::create([
+                'from' => $accountTo->user->id,
+                'to' => $accountTo->user->id,
+                'operation' => 'Depósito',
+                'type' => 'positive',
+                'value' => $request->balance,
+                'description' => $request->description || null,
+            ]);
+
+            return response($accountTo, 200);
         }
 
         return response('Conta não encontrada!', 404);
@@ -73,8 +82,19 @@ class AccountController extends Controller
             $balance = $account->balance - $request->value;
             $balanceTo = $accountTo->balance + $request->value;
 
+            // return "$balance e $balanceTo";
+
             $account->update(['balance' => $balance]);
             $accountTo->update(['balance' => $balanceTo]);
+
+            Extract::create([
+                'from' => $account->user->id,
+                'to' => $accountTo->user->id,
+                'operation' => 'Transferência',
+                'type' => 'negative',
+                'value' => $request->value,
+                'description' => $request->description || null,
+            ]);
 
             return response($account, 200);
         }
