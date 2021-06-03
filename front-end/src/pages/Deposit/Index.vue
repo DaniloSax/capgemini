@@ -98,16 +98,36 @@
 <script>
 export default {
   data: () => ({
-    value: '',
     bank: 'Banco Capgemini',
     accountType: 'Conta Corrente',
     agency: '',
-    account: ''
+    account: '',
+    value: ''
   }),
 
   methods: {
-    onSubmit () {
-      console.log('sacando dinheiro')
+    async onSubmit () {
+      const transaction = {
+        agency: this.agency,
+        account: this.account,
+        balance: this.value
+      }
+
+      try {
+        await this.$store.dispatch('Account/deposit', transaction)
+
+        this.$q.notify({
+          type: 'positive',
+          position: 'top-right',
+          message: 'Deposito efetuado com sucesso!'
+        })
+      } catch (error) {
+        this.$q.notify({
+          type: 'negative',
+          position: 'top-right',
+          message: 'Conta não encontrada'
+        })
+      }
     }
   }
 }

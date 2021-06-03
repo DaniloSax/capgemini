@@ -20,56 +20,7 @@ class AccountController extends Controller
         return response()->json($user->account);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Account  $account
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Account $account)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Account  $account
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Account $account)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Account  $account
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Account $account)
     {
         $balance = $account->balance - $request->value;
@@ -77,14 +28,23 @@ class AccountController extends Controller
         return response($account, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Account  $account
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Account $account)
+    public function deposit(Request $request)
     {
-        //
+
+        $account = Account::where([
+            'agency' => $request->agency,
+            'account' => $request->account,
+        ])->first();
+
+        if (isset($account)) {
+
+            $balance = $account->balance + (float) $request->balance;
+
+            $account->update(['balance' => $balance]);
+
+            return response($account, 200);
+        }
+
+        return response('Conta não encontrada!', 404);
     }
 }

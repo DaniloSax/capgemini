@@ -34,3 +34,18 @@ export function withDraw ({ getters, commit }, value) {
       .catch(error => reject(error))
   })
 }
+
+export function deposit ({ getters, commit }, transaction) {
+  return new Promise((resolve, reject) => {
+    axios.post('account/deposit', transaction, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('api_token')}`
+      }
+    })
+      .then(resp => {
+        commit('SET_ACCOUNT', resp.data)
+        return resolve(resp.data)
+      })
+      .catch(error => reject(error))
+  })
+}

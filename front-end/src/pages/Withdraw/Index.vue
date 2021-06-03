@@ -64,8 +64,14 @@ export default {
   }),
 
   methods: {
-    onSubmit () {
-      this.$store.dispatch('Account/withDraw', { value: this.value })
+    async onSubmit () {
+      await this.$store.dispatch('Account/withDraw', { value: this.value })
+
+      this.$q.notify({
+        type: 'positive',
+        position: 'top-right',
+        message: 'Saque efetuado com sucesso!'
+      })
     }
   }
 }
