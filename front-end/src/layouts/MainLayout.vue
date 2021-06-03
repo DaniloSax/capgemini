@@ -73,7 +73,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .bg-header {
   background-color: white;
 }

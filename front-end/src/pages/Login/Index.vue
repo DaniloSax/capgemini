@@ -1,6 +1,6 @@
 <template>
   <q-layout row wrap>
-    <q-page-container class="bg-login">
+    <q-page-container class="background-theme">
       <q-page padding>
         <div class="fixed-center">
           <q-card class="rounded border-top " style="width: 700px">
@@ -50,7 +50,7 @@
                   <q-btn
                     label="Entrar"
                     type="submit"
-                    color="info"
+                    color="blue"
                     class="full-width"
                     :loading="loading"
                   />
@@ -95,14 +95,14 @@ export default {
 }
 </script>
 
-<style>
-.bg-login {
-  background: #2980b9;
-  background: -webkit-linear-gradient(to right, #ffffff, #6dd5fa, #2980b9);
-  background: linear-gradient(to right, #ffffff, #6dd5fa, #2980b9);
+<style lang="scss">
+.background-theme {
+  background: #c9d6ff;
+  background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff);
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
 }
 
 .border-top {
-  border-top: 4px solid var(--q-color-info);
+  border-top: 4px solid $blue;
 }
 </style>

@@ -1,19 +1,46 @@
 <template>
-  <q-page class="flex flex-center">
-    <q-card class="my-card">
-      <q-card-section class="bg-blue">
-        <div class="text-h6">Our Changing Planet</div>
-        <div class="text-subtitle2">by John Doe</div>
-      </q-card-section>
-      <q-card-section>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit
-      </q-card-section>
-    </q-card>
+  <q-page class="flex q-py-xl q-px-xl">
+    <div v-for="(item, index) in transactions" :key="index">
+      <CardTransaction
+        :title="item.title"
+        :icon="item.icon"
+        :link-name="item.linkName"
+      />
+    </div>
   </q-page>
 </template>
 
 <script>
+import CardTransaction from '../components/CardTransaction'
+
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+
+  data: () => ({
+    transactions: [
+      {
+        title: 'Extratos',
+        icon: 'fas fa-file-invoice-dollar',
+        linkName: 'Extract'
+      },
+      {
+        title: 'Transferências',
+        icon: 'fas fa-exchange-alt',
+        linkName: 'Transfer'
+      },
+      {
+        title: 'Depósitar',
+        icon: 'fas fa-hand-holding-usd',
+        linkName: 'Deposit'
+      },
+      {
+        title: 'Sacar',
+        icon: 'far fa-money-bill-alt',
+        linkName: 'Withdraw'
+      }
+    ]
+  }),
+
+  components: { CardTransaction }
 }
 </script>
