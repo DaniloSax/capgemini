@@ -20,14 +20,15 @@ export function getBalance ({ commit }) {
   })
 }
 
-export function withDraw ({ dispatch }) {
+export function withDraw ({ getters, commit }, value) {
   return new Promise((resolve, reject) => {
-    axios.get('account', {
+    axios.put(`account/${getters.account.id}`, value, {
       headers: {
         Authorization: `Bearer ${Cookies.get('api_token')}`
       }
     })
       .then(resp => {
+        commit('SET_ACCOUNT', resp.data)
         return resolve(resp.data)
       })
       .catch(error => reject(error))

@@ -72,7 +72,9 @@ class AccountController extends Controller
      */
     public function update(Request $request, Account $account)
     {
-        //
+        $balance = $account->balance - $request->value;
+        $account->update(['balance' => $balance]);
+        return response($account, 200);
     }
 
     /**

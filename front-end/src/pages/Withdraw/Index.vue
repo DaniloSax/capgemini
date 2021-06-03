@@ -65,7 +65,7 @@ export default {
 
   methods: {
     onSubmit () {
-      console.log('sacando dinheiro')
+      this.$store.dispatch('Account/withDraw', { value: this.value })
     }
   }
 }
