@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header elevated class="text-black">
       <q-toolbar class="bg-header">
         <q-btn
@@ -34,7 +34,7 @@
           Essential Links
         </q-item-label>
         <EssentialLink
-          v-for="link in essentialLinks"
+          v-for="link in transactions"
           :key="link.title"
           v-bind="link"
         />
@@ -52,14 +52,7 @@ import EssentialLink from 'components/EssentialLink'
 import UserDropdown from './UserDropdown'
 import Balance from '../components/Balance'
 
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  }
-]
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MainLayout',
@@ -68,10 +61,10 @@ export default {
 
   data () {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+      leftDrawerOpen: false
     }
-  }
+  },
+  computed: { ...mapGetters({ transactions: 'Transaction/transactions' }) }
 }
 </script>
 

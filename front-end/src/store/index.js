@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import Auth from './Auth'
 import Account from './Account'
 import Extract from './Extract'
+import Transaction from './Transaction'
 
 Vue.use(Vuex)
 
@@ -23,7 +24,8 @@ export default function (/* { ssrContext } */) {
       // example
       Auth,
       Account,
-      Extract
+      Extract,
+      Transaction
     },
 
     // enable strict mode (adds overhead!)

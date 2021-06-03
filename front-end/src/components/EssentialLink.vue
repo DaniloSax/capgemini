@@ -1,14 +1,6 @@
 <template>
-  <q-item
-    clickable
-    tag="a"
-    target="_blank"
-    :href="link"
-  >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
+  <q-item clickable tag="a" target="_blank" @click="route">
+    <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
 
@@ -35,7 +27,7 @@ export default {
       default: ''
     },
 
-    link: {
+    linkName: {
       type: String,
       default: '#'
     },
@@ -43,6 +35,12 @@ export default {
     icon: {
       type: String,
       default: ''
+    }
+  },
+
+  methods: {
+    route () {
+      this.$router.push({ name: this.linkName }).catch(() => {})
     }
   }
 }

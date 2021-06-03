@@ -12,35 +12,17 @@
 
 <script>
 import CardTransaction from '../components/CardTransaction'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'PageIndex',
 
-  data: () => ({
-    transactions: [
-      {
-        title: 'Extratos',
-        icon: 'fas fa-file-invoice-dollar',
-        linkName: 'Extract'
-      },
-      {
-        title: 'Transferências',
-        icon: 'fas fa-exchange-alt',
-        linkName: 'Transfer'
-      },
-      {
-        title: 'Depósitar',
-        icon: 'fas fa-hand-holding-usd',
-        linkName: 'Deposit'
-      },
-      {
-        title: 'Sacar',
-        icon: 'far fa-money-bill-alt',
-        linkName: 'Withdraw'
-      }
-    ]
-  }),
+  components: { CardTransaction },
 
-  components: { CardTransaction }
+  computed: {
+    ...mapGetters({
+      transactions: 'Transaction/transactions'
+    })
+  }
 }
 </script>
