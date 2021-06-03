@@ -20,7 +20,7 @@ class AccountSeeder extends Seeder
             Account::create([
                 'user_id' =>  $user->id,
                 'agency' => 250,
-                'account' => 10,
+                'account' => 2100460,
                 'balance' => 500.00
             ]);
         }

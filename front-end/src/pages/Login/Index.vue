@@ -38,7 +38,7 @@
                   <div class="col-12">
                     <q-input
                       v-model="password"
-                      type="text"
+                      type="password"
                       label="Senha"
                       :rules="[value => !!value || 'Campo Obrigatório']"
                       clearable
@@ -68,7 +68,7 @@
 export default {
   data: () => ({
     agency: '250',
-    account: '10',
+    account: '2100460',
     password: 'danilo123',
     loading: false
   }),

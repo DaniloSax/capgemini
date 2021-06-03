@@ -29,7 +29,7 @@
       <q-card-section>
         <q-list>
           <q-item clickable v-ripple v-for="(item, i) in extracts" :key="i">
-            <q-item-section :class="`text-${item.type}`">
+            <q-item-section :class="classType(item)">
               <div class="text-subtitle2">
                 {{ item.operation }}
               </div>
@@ -38,8 +38,12 @@
               </div>
             </q-item-section>
             <q-item-section>
-              <div class="text-subtitle2 text-weight-thin">De: {{ item.from.name }}</div>
-              <div class="text-subtitle2 text-weight-thin">Para: {{ item.to.name }}</div>
+              <div class="text-subtitle2 text-weight-thin">
+                De: {{ item.from.name }}
+              </div>
+              <div class="text-subtitle2 text-weight-thin">
+                Para: {{ item.to.name }}
+              </div>
             </q-item-section>
             <q-item-section>
               <div class="text-subtitle1">
@@ -59,19 +63,29 @@ import { date } from 'quasar'
 
 export default {
   async mounted () {
-    const resp = await this.$store.dispatch('Extract/extracts')
-    console.log(resp)
+    await this.$store.dispatch('Extract/extracts')
   },
 
   computed: {
     ...mapGetters({
-      extracts: 'Extract/extracts'
+      extracts: 'Extract/extracts',
+      auth: 'Auth/auth'
     })
   },
 
   methods: {
     formatDate (timeStamp) {
       return date.formatDate(timeStamp, 'DD/MM/YYYY')
+    },
+
+    classType (transaction) {
+      const conditional =
+        transaction.from.id === this.auth.id &&
+        transaction.operation !== 'Depósito'
+
+      if (conditional) {
+        return 'text-negative'
+      } else return 'text-positive'
     }
   }
 }
