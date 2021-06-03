@@ -30,9 +30,7 @@
       content-class="bg-grey-1"
     >
       <q-list>
-        <q-item-label header class="text-grey-8">
-          Essential Links
-        </q-item-label>
+        <q-item-label header class="text-grey-8">Menus</q-item-label>
         <EssentialLink
           v-for="link in transactions"
           :key="link.title"

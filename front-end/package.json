@@ -1,7 +1,7 @@
 {
-  "name": "Banco Capgemini",
+  "name": "banco-capgemini",
   "version": "0.0.1",
-  "description": "frontend frontend do teste capgemini",
+  "description": "frontend teste capgemini",
   "productName": "Banco Capgemini",
   "author": "danilo veloso",
   "private": true,
