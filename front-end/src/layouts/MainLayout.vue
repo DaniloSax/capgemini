@@ -19,6 +19,8 @@
 
         <UserDropdown />
       </q-toolbar>
+
+      <Balance />
     </q-header>
 
     <q-drawer
@@ -39,15 +41,16 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container class="background-theme">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-import UserDropdown from './UserDropdown.vue'
+import EssentialLink from 'components/EssentialLink'
+import UserDropdown from './UserDropdown'
+import Balance from '../components/Balance'
 
 const linksData = [
   {
@@ -60,7 +63,7 @@ const linksData = [
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink, UserDropdown },
+  components: { EssentialLink, UserDropdown, Balance },
   data () {
     return {
       leftDrawerOpen: false,
@@ -73,5 +76,11 @@ export default {
 <style scoped>
 .bg-header {
   background-color: white;
+}
+
+.background-theme {
+  background: #c9d6ff;
+  background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff);
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
 }
 </style>
